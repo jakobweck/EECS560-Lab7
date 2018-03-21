@@ -1,3 +1,7 @@
+
+#include "Maxheap.h"
+#include <math.h>
+
 Maxheap::Maxheap(){
   this->arr = new int[500];
   for(int i =0;i<500;i++){
@@ -8,9 +12,9 @@ Maxheap::Maxheap(){
 Maxheap::~Maxheap(){
   delete [] this->arr;
 }
-void Maxheap::buildHeap(int* input){
-  this->size = input.size();
-  for(int i=0;i<input.size();i++){
+void Maxheap::buildHeap(int* input, int size){
+  this->size = size;
+  for(int i=0;i<size;i++){
     this->arr[i] = input[i];
   }
   //find last parent
@@ -32,10 +36,10 @@ void Maxheap::insert(int x){
 }
 
 void Maxheap::deleteMin(){
-  int firstLeaf = floor(1+(input.size()-1)/5);
+  int firstLeaf = floor(1+(this->size-1)/5);
   int currMin = arr[firstLeaf];
   int currMinIndex = firstLeaf;
-  for(int i = firstLeaf;i<arr.size();i++){
+  for(int i = firstLeaf;i<this->size;i++){
     if (arr[i]<currMin){
       currMinIndex = i;
       currMin = arr[i];
@@ -46,9 +50,10 @@ void Maxheap::deleteMin(){
 }
 
 void Maxheap::deleteMax(){
-  int last;
-  int lastIndex;
-  for(int i = arr.size();i>=0;i--){
+  int last = 0;
+  int lastIndex = 0;
+  if(this->size ==0) return;
+  for(int i = this->size;i>=0;i--){
     if(arr[i] != -1){
       last = arr[i];
       lastIndex = i;
@@ -62,9 +67,9 @@ void Maxheap::deleteMax(){
 }
 
 int Maxheap::findMin(){
-  int firstLeaf = floor(1+(input.size()-1)/5);
+  int firstLeaf = floor(1+(this->size-1)/5); //should these sizes be number of elements or array size?
   int currMin = arr[firstLeaf];
-  for(int i = firstLeaf;i<arr.size();i++){
+  for(int i = firstLeaf;i<this->size;i++){
     if (arr[i]<currMin){
       currMin = arr[i];
     }
@@ -81,7 +86,7 @@ void Maxheap::levelOrder(){
 
 }
 
-void Maxheap::getParent(int i){
+int Maxheap::getParent(int i){
   return floor((i-1)/5);
 }
 
@@ -104,7 +109,7 @@ void Maxheap::heapify(){
     int maxChildIndex = -1;
     bool swap = false;
     //find max child if larger than parent
-    for(int j=0;i<children.size();j++){
+    for(int j=0;i<5;j++){
       if (arr[children[j]] != -1 && arr[children[j]]>maxChild){
         swap = true;
         maxChild = arr[children[j]];

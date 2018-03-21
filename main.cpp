@@ -4,14 +4,13 @@
 #include <iomanip>
 #include "Maxheap.h"
 #include "Minheap.h"
-
 int main(int argc, char** argv)
 {
   if(argc<2){
     std::cout<<"Usage: ./prog [max]/[min]";
     return 0;
   }
-  char* heapChoice = argv[1];
+  std::string heapChoice = argv[1];
   Heap* heap;
   if(heapChoice.compare("max") == 0){
     heap = new Maxheap();
@@ -22,7 +21,7 @@ int main(int argc, char** argv)
   else{
     return 0;
   }
-
+  std::ifstream file;
   file.open("data.txt");
   int curr;
 
@@ -33,11 +32,12 @@ int main(int argc, char** argv)
   }
   bool keepRunning = true;
   while(keepRunning){
-      std::cout<<"Please choose one of the following commands: \n1- Insert\n2- deleteMin\n3- findMin\n4- findMax\n5- deleteMax\n6-levelOrder\n7- Exit";
+      std::cout<<"Please choose one of the following commands: \n1- Insert\n2- deleteMin\n3- findMin\n4- findMax\n5- deleteMax\n6- levelOrder\n7- Exit";
       int choice;
       std::cin >> choice;
       switch (choice){
         case 1:{
+          std::cout<<"Choose a number to insert: ";
           int x;
           std::cin >> x;
           heap->insert(x);

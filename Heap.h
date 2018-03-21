@@ -1,16 +1,26 @@
 #ifndef HEAP
 #define HEAP
-class Maxheap{
+class Heap{
 public:
-  virtual void buildHeap(int* arr);
-  virtual void insert(int x);
-  virtual void deleteMin();
-  virtual int findMin();
-  virtual int findMax();
-  virtual void deleteMax();
-  virtual void levelOrder();
-private:
+  Heap() {};
+  ~Heap() {};
+  virtual void buildHeap(int* arr, int size) = 0;
+  virtual void insert(int x) = 0;
+  virtual void deleteMin() = 0;
+  virtual int findMin() = 0;
+  virtual int findMax() = 0;
+  virtual void deleteMax() = 0;
+  virtual void levelOrder() = 0;
+  virtual int getParent(int i) = 0;
+  virtual int* getChildrenIndices(int i) = 0;
+  virtual void heapify() = 0;
   int* arr;
   int size;
-}
+private:
+
+};
+
 #endif
+
+
+
