@@ -19,17 +19,26 @@ int main(int argc, char** argv)
     heap = new Minheap();
   }
   else{
+    std::cout<<"Usage: ./prog [max]/[min]";    
     return 0;
   }
   std::ifstream file;
   file.open("data.txt");
   int curr;
-
+  int i = 0;
   while(file>>curr){
-      std::cout<<"Inserting " << curr << "\n";
-      heap->insert(curr);
-
+      i++;
   }
+  int* arr = new int[i];  
+  i = 0;
+  file.close();
+  file.open("data.txt");
+  while(file>>curr){
+    arr[i] = curr;
+    i++;
+  }
+  heap->buildHeap(arr, i);
+  delete [] arr;
   bool keepRunning = true;
   while(keepRunning){
       std::cout<<"Please choose one of the following commands: \n1- Insert\n2- deleteMin\n3- findMin\n4- findMax\n5- deleteMax\n6- levelOrder\n7- Exit";
@@ -41,26 +50,32 @@ int main(int argc, char** argv)
           int x;
           std::cin >> x;
           heap->insert(x);
+          heap->levelOrder();
           break;
         }
         case 2:{
           heap->deleteMin();
+          heap->levelOrder();
           break;
         }
         case 3:{
           int res = heap->findMin();
+          std::cout <<"Min value: " << res << "\n";          
           break;
         }
         case 4:{
           int res = heap->findMax();
+          std::cout << "Max value: " <<  res << "\n";
           break;
         }
         case 5:{
           heap->deleteMax();
+          heap->levelOrder();
           break;
         }
         case 6:{
           heap->levelOrder();
+          std::cout << "\n";
           break;
         }
         case 7:{
@@ -69,7 +84,7 @@ int main(int argc, char** argv)
         }
       }
     }
-
-	return (0);
+  delete heap;
+	return 0;
 }
 

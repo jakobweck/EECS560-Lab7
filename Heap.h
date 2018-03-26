@@ -1,5 +1,7 @@
 #ifndef HEAP
 #define HEAP
+//abstract heap class with all methods implemented by both heap types
+//allows us to polymorphically choose which heap type to instantiate based on terminal args
 class Heap{
 public:
   Heap() {};
